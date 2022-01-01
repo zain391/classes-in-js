@@ -9,20 +9,20 @@
 <body>
     <h3>we are going to learn classes in javscript</h3>
     <script>
-        class Teacher{
-            constructor(_name,_creditHours,_subject){
-                this.name=_name;
-                this._creditHours=_creditHours;
-                this._subject=_subject;
+        class Rectangle{
+            constructor(_h,_w){
+                this.height=_h;
+                this.width=_w;
             }
-            doTeachesWell(){
-                console.log("yes yes Sir Usman is a good teacher");
+            findingArea(){
+                console.log(`i am the total area of rectangle1: ${this.height * this.width}`);
             }
         }
-        const sirUsman=new Teacher("Sir Usman",3,"OOP");
-        // console.log(sirUsman.doTeachesWell);
-        console.log(sirUsman);
-        sirUsman.doTeachesWell();
+        const rectangle1=new Rectangle(8,4);
+        const rectangle2=new Rectangle(2,2);
+        console.log(rectangle1);
+        rectangle1.findingArea();
+        rectangle2.findingArea();
     </script>
 </body>
 </html>
