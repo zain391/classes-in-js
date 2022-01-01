@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXTENDS KEY WORD</title>
+</head>
+<body>
+    <h3>we are going to learn about the EXTENDS keyword</h3>
+    <script>
+        class Person{
+            constructor(name,age){
+                this.name=name;
+                this.age=age;
+            }
+            desribe(){
+                console.log("i am a noraml person not a programmer");
+            }
+        }
+        class Programmer extends Person {
+            constructor(name,age,yearsOfExper){
+                super(name,age);
+                this.yearsOfExper=yearsOfExper;
+            }
+        }
+        let person1=new Person ("zain",20);
+        let programmer1=new Programmer("Zain Qamer",21);
+        console.log(person1);
+        console.log(programmer1);
+        person1.desribe();
+
+
+
+
+
+
+
+    </script>
+    
+</body>
+</html>
