@@ -23,6 +23,18 @@
         console.log(square1);
         square1.area;
 
+        function Squares(wid){
+            this.width=wid;
+            this.height=wid;
+            this.area=function area(){
+                console.log("i am the area of the sq1 inisde the constructor");
+            }
+        }
+        const sq1=new Squares(4);
+        sq1.area();
+
+
+
 
 
 
