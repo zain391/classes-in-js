@@ -13,25 +13,25 @@
             constructor(wid){
                 this.width=wid;
                 this.height=wid;
-                    // now we will get a square
             }
             get area(){
-                console.log("i am not a method i am propety");
+                console.log(`i am the area of the square1 : ${this.width * this.height}`);
+            }
+            set area(paches){
+                this.height=Math.sqrt(paches);
+                this.width=Math.sqrt(paches);
             }
         }
-        const square1=new Square(4);
-        console.log(square1);
-        square1.area;
+        const sq1=new Square(4);
+        console.log(sq1);
+        sq1.area;
+        sq1.area=25;
+        console.log(sq1.width);
+        console.log(sq1.height);
 
-        function Squares(wid){
-            this.width=wid;
-            this.height=wid;
-            this.area=function area(){
-                console.log("i am the area of the sq1 inisde the constructor");
-            }
-        }
-        const sq1=new Squares(4);
-        sq1.area();
+
+
+
 
 
 
