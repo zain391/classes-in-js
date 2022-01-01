@@ -9,11 +9,20 @@
 <body>
     <h3>we are going to learn classes in javscript</h3>
     <script>
-        class Rectangel{
-            constructor(){
-                
+        class Teacher{
+            constructor(_name,_creditHours,_subject){
+                this.name=_name;
+                this._creditHours=_creditHours;
+                this._subject=_subject;
+            }
+            doTeachesWell(){
+                console.log("yes yes Sir Usman is a good teacher");
             }
         }
+        const sirUsman=new Teacher("Sir Usman",3,"OOP");
+        // console.log(sirUsman.doTeachesWell);
+        console.log(sirUsman);
+        sirUsman.doTeachesWell();
     </script>
 </body>
 </html>
