@@ -111,3 +111,26 @@ if (!deviceIsConnected()) return;
         vm.subscriptionRef;
         init();
     }
+    
+    function init() {            
+        registerServerApiCallResponse(entity, selfCtx);
+        
+        fetchAttributes().then(result => {
+            assumeRole();     
+        });
+    }        
+    
+    function registerServerApiCallResponse(entity, ctx){
+        scope.firstTriggerHappened = false;
+        
+        let subscriptionInfo = {
+            type: 'entity',
+            entityType: entity.entityType,
+            entityId: entity.id
+        };
+        
+        subscriptionInfo.attributes = [{
+            name: SERVER_API_CALL_RESPONSE,
+            label: SERVER_API_CALL_RESPONSE
+        }];
+        
