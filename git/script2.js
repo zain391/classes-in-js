@@ -83,3 +83,38 @@ self.onDataUpdated = function() {
         scope.optionSelected = (radioToSelect) ? radioToSelect.index : "";   
     }
 }
+
+self.onInit = function () {
+
+    let selfCtx = self.ctx;
+    // Services 
+    let $injector = selfCtx.$scope.$injector;
+    let attributeService = $injector.get('attributeService');
+    let scope = selfCtx.$scope;
+
+    scope.isLocalUpdate = false;
+    entityId = getDeviceId(selfCtx);
+
+    scope.updateEarphoneAttribute = function () {
+        scope.isLocalUpdate = true;
+        let earphoneValue = [
+            {
+                key: EARPHONE_VOLUME_LEVEL_ATTRIBUTE,
+                value: scope.earphoneVolume.toString()
+            }
+        ]
+        attributeService.saveEntityAttributes("DEVICE", entityId, "SHARED_SCOPE", [...earphoneValue]);
+    }
+}
+
+self.onDataUpdated = function () {
+    let selfCtx = self.ctx;
+    const data = selfCtx.data;
+    let scope = selfCtx.$scope;
+    if (scope.isLocalUpdate) {
+        scope.isLocalUpdate = false;
+        return;
+    }
+    scope.earphoneVolume = parseInt(getValueFromData(data, EARPHONE_VOLUME_LEVEL_ATTRIBUTE));
+    scope.$apply();
+}
