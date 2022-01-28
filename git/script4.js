@@ -55,3 +55,59 @@ if (!deviceIsConnected()) return;
                         selfCtx.$scope.connected = connected;
                     }).catch(err=>console.log(`There has been an error under 'fetchAttributes': ${err}`));
                 }
+            }
+        }
+        
+        ctx.subscriptionApi.createSubscriptionFromInfo('latest',[subscriptionInfo],subscriptionOptions,false,true);
+    }
+    
+    function isConnected(entity, attributeService){
+        return new Promise((resolve, reject)=>{
+            
+            attributeService.getEntityAttributesValues(entity.entityType, entity.id, 'SERVER_SCOPE').then(data=>{
+                let lastDisconnectTimeObj = data.find(item => item.key == "lastDisconnectTime");
+                
+                let lastConnectTimeObj = data.find(item => item.key == "lastConnectTime");
+                
+                let inactivityAlarmTimeObj = data.find(item => item.key == "inactivityAlarmTime");
+                
+                let lastActivityTimeObj = data.find(item => item.key == "lastActivityTime");
+                
+                if(!lastConnectTimeObj || !lastDisconnectTimeObj) {
+                    return reject("'lastConnectTime' or 'lastDisconnectTime' attributes are missing");
+                }
+
+                
+                let connected = (lastConnectTimeObj.value > lastDisconnectTimeObj.value) && (inactivityAlarmTimeObj.value < lastActivityTimeObj.value);
+                
+                return resolve(connected);
+            })     
+        })
+    }
+
+    selfCtx.$scope.openKvsModal = function () {        
+        selfCtx.controlApi.sendOneWayCommand(RPC_START_METHOD);
+
+        $mdDialog.show({
+            controller: ['$scope', '$mdDialog', '$q', '$interval', 'attributeService', kvsDialogController],
+            controllerAs: 'vm',
+            template: kvsTemplate,
+            parent: angular.element($document[0].body),
+            multiple: true,
+            clickOutsideToClose: false
+        });
+    }
+
+    function kvsDialogController($scope, $mdDialog, $q, $interval, attributeService) {
+        var vm = this;
+        vm.hospitalName;
+        vm.initialized = false;
+        vm.validStream = true;
+        vm.accessKeyId;
+        vm.secretAccessKey;
+        vm.regionObj;
+        vm.tenantId;
+        vm.serial;
+        vm.subscriptionRef;
+        init();
+    }
